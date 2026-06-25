@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindful Gaming — Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1F6;
+    --card:#FFFFFF;
+    --ink:#1F2444;
+    --ink-soft:#4A5072;
+    --amber:#D97F2E;
+    --amber-bg:#FBEAD7;
+    --sage:#5C8973;
+    --sage-bg:#E4EEE7;
+    --slate:#C7CEDE;
+    --radius:16px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Source Serif 4', serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  img,svg{display:block;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem;}
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+  }
+
+  .display{
+    font-family:'Big Shoulders', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+
+  :focus-visible{
+    outline:3px solid var(--amber);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:rgba(238,241,246,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--slate);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0.9rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:0.6rem;
+  }
+  .wordmark span.title{
+    font-family:'Big Shoulders', sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    letter-spacing:-0.01em;
+  }
+  .wordmark span.tag{
+    color:var(--sage);
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:0.7rem 1.2rem;
+    border-radius:999px;
+    border:1.5px solid var(--ink);
+    background:var(--ink);
+    color:#fff;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(31,36,68,0.18);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border-color:var(--slate);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  .section{
+    padding:5.5rem 0;
+  }
+  .section-narrow{max-width:760px;margin:0 auto;}
+  .eyebrow{
+    color:var(--sage);
+    margin-bottom:1rem;
+    display:block;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:9.5rem 0 5rem;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:3.5rem;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(2.5rem, 5vw, 3.6rem);
+    margin:0 0 1.3rem;
+  }
+  .hero-sub{
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:34rem;
+    margin:0 0 2rem;
+  }
+
+  .waitlist-form{
+    display:flex;
+    gap:0.6rem;
+    max-width:30rem;
+    margin-bottom:0.8rem;
+  }
+  .waitlist-form input[type="email"]{
+    flex:1;
+    padding:0.85rem 1rem;
+    border-radius:10px;
+    border:1.5px solid var(--slate);
+    background:var(--card);
+    font-family:'Source Serif 4', serif;
+    font-size:1rem;
+    color:var(--ink);
+  }
+  .waitlist-form input[type="email"]::placeholder{color:#8A90AC;}
+  .waitlist-form .btn{
+    background:var(--amber);
+    border-color:var(--amber);
+    color:#fff;
+    padding:0.85rem 1.4rem;
+  }
+  .waitlist-form .btn:hover{box-shadow:0 6px 16px rgba(217,127,46,0.35);}
+  .microcopy{color:var(--ink-soft);}
+
+  @media (max-width:640px){
+    .waitlist-form{flex-direction:column;}
+  }
+
+  /* ---------- QUEST CARD (signature element) ---------- */
+  .quest-card{
+    background:var(--card);
+    border:1.5px solid var(--slate);
+    border-radius:var(--radius);
+    padding:1.6rem 1.7rem;
+    box-shadow:0 18px 40px -22px rgba(31,36,68,0.35);
+    max-width:23rem;
+    margin:0 auto;
+  }
+  .quest-card-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:1.1rem;
+  }
+  .lvl-pill{
+    background:var(--bg);
+    border:1px solid var(--slate);
+    border-radius:999px;
+    padding:0.25rem 0.65rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.05em;
+  }
+  .quest-title{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:1.35rem;
+    margin:0 0 0.5rem;
+  }
+  .tag-chip{
+    display:inline-block;
+    background:var(--sage-bg);
+    color:var(--sage);
+    font-family:'Space Mono', monospace;
+    font-size:0.66rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:0.28rem 0.6rem;
+    border-radius:999px;
+    margin-bottom:0.9rem;
+  }
+  .quest-desc{
+    color:var(--ink-soft);
+    font-size:0.96rem;
+    margin:0 0 1.2rem;
+  }
+  .quest-reward-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-top:1px dashed var(--slate);
+    padding-top:1rem;
+  }
+  .reward-text{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    color:var(--amber);
+    font-weight:700;
+  }
+  .quest-check{
+    width:1.6rem;height:1.6rem;
+    border-radius:50%;
+    border:1.5px solid var(--slate);
+    background:var(--bg);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.85rem;
+    color:transparent;
+    transition:all 0.2s ease;
+  }
+  .quest-check.done{
+    background:var(--sage);
+    border-color:var(--sage);
+    color:#fff;
+  }
+  .quest-card.done .quest-title,
+  .quest-card.done .quest-desc{
+    text-decoration:line-through;
+    text-decoration-color:var(--slate);
+    opacity:0.55;
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .hero-quest-float{
+      animation:breathe 6.5s ease-in-out infinite;
+    }
+  }
+  @keyframes breathe{
+    0%,100%{transform:translateY(0) scale(1);}
+    50%{transform:translateY(-4px) scale(1.012);}
+  }
+
+  /* ---------- PROBLEM SECTION ---------- */
+  .scene{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-size:1.5rem;
+    color:var(--ink);
+    margin:1.2rem 0 1.6rem;
+    border-left:3px solid var(--amber);
+    padding-left:1.3rem;
+  }
+  .scene span{display:block;margin-bottom:0.3rem;}
+  .scene .beat{
+    font-style:normal;
+    font-family:'Space Mono', monospace;
+    font-size:0.75rem;
+    color:var(--ink-soft);
+    letter-spacing:0.03em;
+    text-transform:none;
+  }
+  .problem-body{
+    color:var(--ink-soft);
+    font-size:1.08rem;
+  }
+  .problem-body strong{color:var(--ink);}
+
+  /* ---------- APPROACH SECTION ---------- */
+  .quest-types{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.4rem;
+    margin-top:2.5rem;
+  }
+  .qtype{
+    background:var(--card);
+    border:1.5px solid var(--slate);
+    border-radius:var(--radius);
+    padding:1.5rem;
+  }
+  .qtype .mono{color:var(--amber);margin-bottom:0.7rem;display:block;}
+  .qtype p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:0.97rem;
+  }
+  @media (max-width:880px){
+    .quest-types{grid-template-columns:1fr;}
+  }
+
+  /* ---------- BOOK / CREDIBILITY ---------- */
+  .book-section{
+    background:var(--card);
+    border-top:1px solid var(--slate);
+    border-bottom:1px solid var(--slate);
+  }
+  .pull-quote{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-size:1.7rem;
+    line-height:1.35;
+    color:var(--ink);
+    margin:1.2rem 0 1.8rem;
+  }
+  .book-body{color:var(--ink-soft);}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-section{text-align:center;}
+  .cta-section h2{
+    font-size:clamp(2rem, 4vw, 2.7rem);
+    margin:0 0 1rem;
+  }
+  .cta-section .hero-sub{margin:0 auto 2.2rem;text-align:center;}
+  .age-chips{
+    display:flex;
+    gap:0.6rem;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin:0 auto 1.8rem;
+    max-width:30rem;
+  }
+  .age-chip{
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    padding:0.55rem 1rem;
+    border-radius:999px;
+    border:1.5px solid var(--slate);
+    background:var(--card);
+    cursor:pointer;
+    transition:all 0.15s ease;
+  }
+  .age-chip.selected{
+    background:var(--ink);
+    border-color:var(--ink);
+    color:#fff;
+  }
+  .waitlist-form.centered{margin:0 auto 0.8rem;}
+  .cta-section .microcopy{display:block;}
+
+  .confirm-card{
+    max-width:26rem;
+    margin:0 auto;
+    background:var(--card);
+    border:1.5px solid var(--sage);
+    border-radius:var(--radius);
+    padding:1.8rem;
+    text-align:left;
+  }
+  .confirm-card .mono{color:var(--sage);margin-bottom:0.6rem;display:block;}
+  .confirm-card h3{
+    font-family:'Source Serif 4', serif;
+    margin:0 0 0.5rem;
+    font-size:1.3rem;
+  }
+  .confirm-card p{margin:0;color:var(--ink-soft);font-size:0.96rem;}
+  .hidden{display:none !important;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:2.6rem 0 3rem;
+    text-align:center;
+    color:var(--ink-soft);
+  }
+  footer .mono{display:block;margin-top:0.4rem;color:var(--slate);}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  @media (max-width:880px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding-top:8rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="wordmark">
+      <span class="title">Mindful Gaming</span>
+      <span class="tag mono">Early Access</span>
+    </div>
+    <a href="#waitlist" class="btn">Join waitlist</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="mono eyebrow">For parents of kids who game</span>
+      <h1 class="display">The goal isn't<br>less gaming.<br>It's better gaming.</h1>
+      <p class="hero-sub">Mindful Gaming turns the book's framework into real quests — built for the kid who isn't going to stop playing, and doesn't have to.</p>
+
+      <form class="waitlist-form" id="hero-form">
+        <label for="hero-email" class="hidden">Email address</label>
+        <input type="email" id="hero-email" placeholder="you@email.com" required>
+        <button type="submit" class="btn">Join the waitlist</button>
+      </form>
+      <span class="mono microcopy">No spam · one note when beta opens</span>
+    </div>
+
+    <div class="hero-quest-float">
+      <div class="quest-card" id="hero-quest">
+        <div class="quest-card-row">
+          <span class="mono">Quest Log</span>
+          <span class="lvl-pill mono">LVL 1</span>
+        </div>
+        <div class="quest-title">The Cooldown</div>
+        <span class="tag-chip">Self-awareness</span>
+        <p class="quest-desc">Notice the moment you want to hit "one more match." Take three breaths before you decide.</p>
+        <div class="quest-reward-row">
+          <span class="reward-text">+15 Calm XP</span>
+          <button class="quest-check" id="hero-check" aria-label="Mark quest complete" type="button">✓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">The cycle</span>
+    <div class="scene">
+      <span>"Just one more game."</span>
+      <span>"Fine — five more minutes."</span>
+      <span class="beat">Forty minutes later, the fight happens anyway.</span>
+    </div>
+    <p class="problem-body">You've tried timers. You've tried bans. You've tried the calm conversation that turned into yelling by the third sentence. <strong>The problem usually isn't that your kid won't listen</strong> — it's that nothing in the game itself teaches them to notice when to stop, how to handle losing, or what to do with the frustration. Mindful Gaming doesn't ask kids to play less. It teaches them to play with more awareness, one small quest at a time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">How it works</span>
+    <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.4rem);">Three kinds of quests</h2>
+    <div class="quest-types">
+      <div class="qtype">
+        <span class="mono">Notice</span>
+        <p>Quests that build awareness of what's happening while they play — tilt, frustration, excitement, the urge for "one more."</p>
+      </div>
+      <div class="qtype">
+        <span class="mono">Pause</span>
+        <p>Quests that practice stepping back — a breath, a check-in, a stopping point they actually chose themselves.</p>
+      </div>
+      <div class="qtype">
+        <span class="mono">Reflect</span>
+        <p>Quests that turn a session into a story — what went well, what they'd try differently, what they're proud of.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section book-section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Where this comes from</span>
+    <p class="pull-quote">"Healthy gaming isn't about the clock. It's about what's happening in your kid's head while they play."</p>
+    <p class="book-body">Mindful Gaming started as a book for parents who were tired of fighting about screens. This app is the next chapter — the book's framework, turned into quests a kid can actually follow. Written by Jeff Swift: a parent, an IT director, and a PhD who's spent his career thinking about how people actually learn.</p>
+  </div>
+</section>
+
+<section class="section cta-section" id="waitlist">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Join the waitlist</span>
+    <h2 class="display">Be the first to test it with your kid</h2>
+    <p class="hero-sub">We're opening a small beta first. Tell us a little about your gamer and we'll let you know the moment a spot opens.</p>
+
+    <div id="cta-form-wrap">
+      <div class="age-chips" id="age-chips">
+        <button class="age-chip" type="button" data-age="Under 8">Under 8</button>
+        <button class="age-chip" type="button" data-age="8–12">8–12</button>
+        <button class="age-chip" type="button" data-age="13–16">13–16</button>
+        <button class="age-chip" type="button" data-age="17+">17+</button>
+      </div>
+      <form class="waitlist-form centered" id="cta-form">
+        <label for="cta-email" class="hidden">Email address</label>
+        <input type="email" id="cta-email" placeholder="you@email.com" required>
+        <button type="submit" class="btn">Join the waitlist</button>
+      </form>
+      <span class="mono microcopy">No spam · one note when beta opens</span>
+    </div>
+
+    <div class="confirm-card hidden" id="confirm-card">
+      <span class="mono">Quest accepted</span>
+      <h3>You're on the list.</h3>
+      <p>We'll send a note the moment beta access opens — no spam, just one email.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Mindful Gaming — a project by Jeff Swift, author of <em>Mindful Gaming</em>.</span>
+  </div>
+</footer>
+
+<script>
+  const heroCheck = document.getElementById('hero-check');
+  const heroQuest = document.getElementById('hero-quest');
+  heroCheck.addEventListener('click', () => {
+    const done = heroQuest.classList.toggle('done');
+    heroCheck.classList.toggle('done', done);
+    heroCheck.textContent = done ? '✓' : '';
+  });
+
+  let selectedAge = null;
+  document.querySelectorAll('.age-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.age-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      selectedAge = chip.dataset.age;
+    });
+  });
+
+  const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    const form = e.target;
+    const emailInput = form.querySelector('input[type="email"]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
+    const data = {
+      email: emailInput.value,
+      age_group: selectedAge || 'Not specified',
+    };
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (response.ok) {
+        document.getElementById('cta-form-wrap').classList.add('hidden');
+        document.getElementById('confirm-card').classList.remove('hidden');
+        document.getElementById('waitlist').scrollIntoView({behavior:'smooth', block:'center'});
+      } else {
+        submitBtn.textContent = 'Try again';
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please try again or email jeff.swift@me.com directly.');
+      }
+    } catch(err) {
+      submitBtn.textContent = 'Try again';
+      submitBtn.disabled = false;
+      alert('Something went wrong. Please try again or email jeff.swift@me.com directly.');
+    }
+  }
+
+  document.getElementById('hero-form').addEventListener('submit', handleSubmit);
+  document.getElementById('cta-form').addEventListener('submit', handleSubmit);
+
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    revealEls.forEach(el => obs.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

@@ -529,10 +529,12 @@
 <footer>
   <div class="wrap">
     <span>Mindful Gaming — a project by Jeff Swift, author of <em>Mindful Gaming</em>.</span>
+
   </div>
 </footer>
 
 <script>
+  // Hero quest card: toggle "complete" for a little delight, purely decorative
   const heroCheck = document.getElementById('hero-check');
   const heroQuest = document.getElementById('hero-quest');
   heroCheck.addEventListener('click', () => {
@@ -541,6 +543,7 @@
     heroCheck.textContent = done ? '✓' : '';
   });
 
+  // Age chip single-select
   let selectedAge = null;
   document.querySelectorAll('.age-chip').forEach(chip => {
     chip.addEventListener('click', () => {
@@ -550,6 +553,7 @@
     });
   });
 
+  // Formspree endpoint — replace YOUR_FORM_ID with your actual ID from formspree.io
   const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
 
   async function handleSubmit(e){
@@ -557,18 +561,23 @@
     const form = e.target;
     const emailInput = form.querySelector('input[type="email"]');
     const submitBtn = form.querySelector('button[type="submit"]');
+
+    // Disable button while submitting
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
+
     const data = {
       email: emailInput.value,
       age_group: selectedAge || 'Not specified',
     };
+
     try {
       const response = await fetch(FORMSPREE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data),
       });
+
       if (response.ok) {
         document.getElementById('cta-form-wrap').classList.add('hidden');
         document.getElementById('confirm-card').classList.remove('hidden');
@@ -588,6 +597,7 @@
   document.getElementById('hero-form').addEventListener('submit', handleSubmit);
   document.getElementById('cta-form').addEventListener('submit', handleSubmit);
 
+  // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window){
     const obs = new IntersectionObserver((entries) => {

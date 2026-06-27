@@ -319,6 +319,40 @@
     .quest-types{grid-template-columns:1fr;}
   }
 
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.4rem;
+    margin-top:2rem;
+  }
+  .testimonial{
+    background:var(--card);
+    border:1.5px solid var(--slate);
+    border-radius:var(--radius);
+    padding:1.5rem;
+    border-left:3px solid var(--amber);
+  }
+  .testimonial blockquote{
+    font-family:'Source Serif 4', serif;
+    font-style:italic;
+    font-size:0.95rem;
+    line-height:1.5;
+    color:var(--ink);
+    margin:0 0 1rem;
+  }
+  .testimonial cite{
+    font-family:'Space Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    font-style:normal;
+    display:block;
+  }
+  @media (max-width:880px){
+    .testimonials-grid{grid-template-columns:1fr;}
+  }
+
   /* ---------- BOOK / CREDIBILITY ---------- */
   .book-section{
     background:var(--card);
@@ -477,6 +511,26 @@
     </div>
     <p class="problem-body">If gaming is already causing real problems in your house — the fights, the grades, the sleep — you're not imagining it, and the research backs up your concern. But here's what the same research shows: the fix has to come from inside the kid, not just from a rule.</p>
     <p class="problem-body">Setting limits is the right instinct — of course you want guardrails. But timers and bans only work from the outside, and they stop working the moment you're not there to enforce them. <strong>The real problem is that nothing in the game itself teaches kids to notice when to stop</strong>, how to handle losing, or what to do with the frustration. Mindful Gaming doesn't replace your limits. It builds the self-awareness that makes those limits matter less over time — one small quest at a time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">What readers are saying</span>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <blockquote>"As a grandparent of gamers, I found it especially valuable. The book offers practical suggestions and thoughtful ideas on how to engage with kids about video games without vilifying the games or the gamers. I appreciated Swift's balanced approach and the tools provided for meaningful conversations."</blockquote>
+        <cite>— Amazon reviewer</cite>
+      </div>
+      <div class="testimonial">
+        <blockquote>"This little book packs a big punch, addressing the stigmas and biases that surround gaming with practical, research-based approaches. It provided much-needed guidance on how to create a positive gaming atmosphere in my home and shift my mindset to incorporate mindful gaming into my children's lives."</blockquote>
+        <cite>— Amazon reviewer</cite>
+      </div>
+      <div class="testimonial">
+        <blockquote>"As a Family Nurse Practitioner, I encourage parents to be present and active in play with their children. This book helps parents with techniques to be actively present with their children who play video games. A great resource for those wanting to understand how to better interact with their children."</blockquote>
+        <cite>— Family Nurse Practitioner, Amazon reviewer</cite>
+      </div>
+    </div>
   </div>
 </section>
 

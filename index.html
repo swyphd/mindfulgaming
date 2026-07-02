@@ -89,6 +89,23 @@
   .wordmark span.tag{
     color:var(--sage);
   }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    margin-left:auto;
+    margin-right:1.2rem;
+  }
+  .nav-link{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:color 0.15s ease;
+  }
+  .nav-link:hover{color:var(--ink);}
   .btn{
     display:inline-flex;
     align-items:center;
@@ -452,6 +469,7 @@
   @media (max-width:880px){
     .hero-grid{grid-template-columns:1fr;}
     .hero{padding-top:8rem;}
+    .nav-links{display:none;}
   }
 </style>
 </head>
@@ -462,6 +480,9 @@
     <div class="wordmark">
       <span class="title">Mindful Gaming</span>
       <span class="tag mono">Early Access</span>
+    </div>
+    <div class="nav-links">
+      <a href="practitioners.html" class="nav-link">Practitioners</a>
     </div>
     <a href="#waitlist" class="btn">Join waitlist</a>
   </div>

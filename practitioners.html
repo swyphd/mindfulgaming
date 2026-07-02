@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Practitioners | Mindful Gaming</title>
+<meta name="description" content="Psychoeducational gaming resources for child and adolescent therapists, counselors, and school counselors.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1F6;
+    --card:#FFFFFF;
+    --ink:#1F2444;
+    --ink-soft:#4A5072;
+    --amber:#D97F2E;
+    --amber-bg:#FBEAD7;
+    --sage:#5C8973;
+    --sage-bg:#E4EEE7;
+    --slate:#C7CEDE;
+    --radius:16px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Source Serif 4', serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  img,svg{display:block;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem;}
+
+  .mono{
+    font-family:'Space Mono', monospace;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+  }
+
+  .display{
+    font-family:'Big Shoulders', sans-serif;
+    font-weight:800;
+    letter-spacing:-0.01em;
+    line-height:0.98;
+  }
+
+  :focus-visible{
+    outline:3px solid var(--amber);
+    outline-offset:3px;
+    border-radius:4px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:50;
+    background:rgba(238,241,246,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--slate);
+  }
+  .nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0.9rem 1.5rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .wordmark{
+    display:flex;
+    align-items:baseline;
+    gap:0.6rem;
+    text-decoration:none;
+  }
+  .wordmark span.title{
+    font-family:'Big Shoulders', sans-serif;
+    font-weight:800;
+    font-size:1.35rem;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+  .wordmark span.tag{
+    color:var(--sage);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    margin-left:auto;
+    margin-right:1.2rem;
+  }
+  .nav-link{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    text-decoration:none;
+    transition:color 0.15s ease;
+  }
+  .nav-link:hover{color:var(--ink);}
+  .nav-link.active{color:var(--ink);}
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5rem;
+    font-family:'Space Mono', monospace;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:0.7rem 1.2rem;
+    border-radius:999px;
+    border:1.5px solid var(--ink);
+    background:var(--ink);
+    color:#fff;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(31,36,68,0.18);}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink);
+    border-color:var(--slate);
+  }
+  .btn-ghost:hover{border-color:var(--ink);}
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  .section{padding:5.5rem 0;}
+  .section-narrow{max-width:760px;margin:0 auto;}
+  .eyebrow{color:var(--sage);margin-bottom:1rem;display:block;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:9.5rem 0 4rem;}
+  .hero h1{
+    font-size:clamp(2.2rem, 4.5vw, 3.2rem);
+    margin:0 0 1.5rem;
+    max-width:30rem;
+  }
+  .hero-sub{
+    font-size:1.15rem;
+    color:var(--ink-soft);
+    max-width:34rem;
+    margin:0 0 2rem;
+  }
+
+  /* ---------- BODY TEXT ---------- */
+  .body-text{
+    color:var(--ink-soft);
+    font-size:1.08rem;
+    margin:0;
+  }
+  .body-text + .body-text{margin-top:1rem;}
+  .body-text strong{color:var(--ink);}
+
+  /* ---------- PILLARS ---------- */
+  .pillars{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1.4rem;
+    margin-top:2.5rem;
+  }
+  .pillar{
+    background:var(--card);
+    border:1.5px solid var(--slate);
+    border-radius:var(--radius);
+    padding:1.5rem;
+  }
+  .pillar .mono{color:var(--amber);margin-bottom:0.7rem;display:block;}
+  .pillar p{margin:0;color:var(--ink-soft);font-size:0.97rem;}
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    background:var(--card);
+    border:1.5px solid var(--slate);
+    border-left:4px solid var(--sage);
+    border-radius:var(--radius);
+    padding:1.8rem 2rem;
+    margin-top:1.5rem;
+  }
+  .callout p{
+    color:var(--ink-soft);
+    font-size:1.05rem;
+    margin:0;
+  }
+
+  /* ---------- AUTHOR SECTION ---------- */
+  .author-section{
+    background:var(--card);
+    border-top:1px solid var(--slate);
+    border-bottom:1px solid var(--slate);
+  }
+
+  /* ---------- CTA SECTION ---------- */
+  .prac-cta{text-align:center;}
+  .prac-cta h2{
+    font-size:clamp(2rem, 4vw, 2.7rem);
+    margin:0 0 1rem;
+  }
+  .prac-cta .hero-sub{
+    margin:0 auto 2rem;
+    text-align:center;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    padding:2.6rem 0 3rem;
+    text-align:center;
+    color:var(--ink-soft);
+  }
+  footer .mono{display:block;margin-top:0.4rem;color:var(--slate);}
+
+  /* ---------- SCROLL REVEAL ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+  }
+
+  @media (max-width:880px){
+    .pillars{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .hero{padding-top:8rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="wordmark">
+      <span class="title">Mindful Gaming</span>
+      <span class="tag mono">Early Access</span>
+    </a>
+    <div class="nav-links">
+      <a href="practitioners.html" class="nav-link active">Practitioners</a>
+    </div>
+    <a href="index.html#waitlist" class="btn">Join waitlist</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="mono eyebrow">For Practitioners</span>
+    <h1 class="display">Psychoeducational resources on gaming for the families you work with</h1>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <p class="body-text">If you work with kids or teens who game — which is most of them — you've probably had the conversation where a parent asks whether it's a problem. Mindful Gaming gives you a framework and ready-to-use materials to help answer that question without defaulting to "cut it off."</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Approach</span>
+    <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.4rem);">The Framework</h2>
+    <p class="body-text" style="margin-top:1.2rem;">Built around three pillars — Play with Purpose, Play Well, Play Together — Mindful Gaming reframes gaming from a behavior to manage into a resource families can use intentionally. It's grounded in research on flow, failure, and social connection in games, and translated into plain-language conversation tools parents and kids can actually use together.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="mono">Play with Purpose</span>
+        <p>Helping kids and parents understand why they game — and how to choose games that connect to something meaningful, not just habit or escape.</p>
+      </div>
+      <div class="pillar">
+        <span class="mono">Play Well</span>
+        <p>The mindset and habits that make gaming healthier: handling loss, recognizing tilt, managing the urge for "one more," and knowing when to stop.</p>
+      </div>
+      <div class="pillar">
+        <span class="mono">Play Together</span>
+        <p>Using games as a bridge between kids and the adults in their lives — turning a common source of conflict into a shared language.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Scope</span>
+    <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.4rem);">What This Is (and Isn't)</h2>
+    <div class="callout">
+      <p>These are psychoeducational materials, not a clinical intervention. They're designed to complement the work you're already doing — something you can hand to a family between sessions, not a replacement for treatment planning.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section author-section">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Who Built This</span>
+    <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.4rem);">Built by Someone Who's Done This Work</h2>
+    <p class="body-text" style="margin-top:1.5rem;">Written by Jeff Swift, PhD (Communication, Rhetoric, &amp; Digital Media, NC State), who built a successful intercollegiate esports program and has spent years helping gamers and their parents turn conflict into conversation.</p>
+  </div>
+</section>
+
+<section class="section prac-cta">
+  <div class="wrap section-narrow reveal">
+    <span class="mono eyebrow">Where This Is Headed</span>
+    <h2 class="display">Where This Is Headed</h2>
+    <p class="hero-sub">I'm currently developing a set of practitioner-ready materials — session handouts, conversation guides, and family exercises based on the Mindful Gaming framework — and I'm shaping them directly with input from therapists and counselors doing this work day to day. If that's useful to you, I'd love 15 minutes to hear how you currently handle gaming conversations with clients and what would actually be useful to have on hand.</p>
+    <!-- TODO: Replace href with Calendly URL -->
+    <a href="#" class="btn">Book a 15-Minute Conversation</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Mindful Gaming — a project by Jeff Swift, author of <em>Mindful Gaming</em>.</span>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    revealEls.forEach(el => obs.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

@@ -1,1 +1,8 @@
-{"crons":[{"path":"/api/send-checkin","schedule":"0 17 * * 1"}]}
+{
+  "crons": [
+    {
+      "path": "/api/send-checkin",
+      "schedule": "0 17 * * 1"
+    }
+  ]
+}

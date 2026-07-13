@@ -3,639 +3,395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mindful Gaming — Check-In</title>
+<title>Mindful Gaming — Weekly Check-In</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#EEF1F6;
-    --card:#FFFFFF;
-    --ink:#1F2444;
-    --ink-soft:#4A5072;
-    --amber:#D97F2E;
-    --amber-bg:#FBEAD7;
-    --sage:#5C8973;
-    --sage-bg:#E4EEE7;
-    --slate:#C7CEDE;
-    --red:#C0392B;
-    --radius:16px;
-    --maxw:860px;
+  :root {
+    --bg: #EEF1F6;
+    --card: #FFFFFF;
+    --ink: #1F2444;
+    --ink-soft: #4A5072;
+    --amber: #D97F2E;
+    --amber-bg: #FBEAD7;
+    --sage: #5C8973;
+    --sage-bg: #E4EEE7;
+    --slate: #C7CEDE;
+    --radius: 16px;
+    --maxw: 860px;
+    --danger: #C0392B;
   }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Source Serif 4', serif;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-  }
-  a{color:inherit;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem;}
-  .mono{
-    font-family:'Space Mono', monospace;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    font-size:0.72rem;
-  }
-  .display{
-    font-family:'Big Shoulders', sans-serif;
-    font-weight:800;
-    letter-spacing:-0.01em;
-    line-height:0.98;
-  }
-
-  /* NAV */
-  .nav{
-    position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(238,241,246,0.86);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--slate);
-  }
-  .nav-inner{
-    max-width:var(--maxw);margin:0 auto;padding:0.9rem 1.5rem;
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .wordmark{display:flex;align-items:baseline;gap:0.6rem;}
-  .wordmark a{text-decoration:none;}
-  .wordmark span.title{
-    font-family:'Big Shoulders', sans-serif;font-weight:800;
-    font-size:1.35rem;letter-spacing:-0.01em;color:var(--ink);
-  }
-  .wordmark span.tag{color:var(--sage);}
-  .btn{
-    display:inline-flex;align-items:center;gap:0.5rem;
-    font-family:'Space Mono', monospace;font-size:0.78rem;
-    text-transform:uppercase;letter-spacing:0.06em;
-    padding:0.7rem 1.2rem;border-radius:999px;
-    border:1.5px solid var(--ink);background:var(--ink);
-    color:#fff;cursor:pointer;text-decoration:none;
-    transition:transform 0.15s ease, box-shadow 0.15s ease;
-    white-space:nowrap;
-  }
-  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(31,36,68,0.18);}
-  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--slate);}
-  .btn-ghost:hover{border-color:var(--ink);}
-  .btn-sage{background:var(--sage);border-color:var(--sage);}
-  .btn-sage:hover{box-shadow:0 6px 16px rgba(92,137,115,0.35);}
-  .btn-amber{background:var(--amber);border-color:var(--amber);}
-  .btn-amber:hover{box-shadow:0 6px 16px rgba(217,127,46,0.35);}
-  .btn-sm{padding:0.45rem 0.9rem;font-size:0.7rem;}
-  .btn-danger{background:var(--red);border-color:var(--red);}
-
-  /* PASSWORD GATE */
-  #gate{
-    display:flex;align-items:center;justify-content:center;
-    min-height:100vh;padding:2rem;
-  }
-  .gate-card{
-    background:var(--card);border:1.5px solid var(--slate);
-    border-radius:var(--radius);padding:2.5rem;
-    max-width:380px;width:100%;text-align:center;
-  }
-  .gate-card h2{font-family:'Big Shoulders',sans-serif;font-size:1.8rem;margin:0.5rem 0 0.3rem;}
-  .gate-card p{color:var(--ink-soft);margin:0 0 1.5rem;font-size:0.95rem;}
-  .gate-input{
-    width:100%;padding:0.85rem 1rem;
-    border-radius:10px;border:1.5px solid var(--slate);
-    background:var(--bg);font-family:'Source Serif 4',serif;
-    font-size:1rem;color:var(--ink);margin-bottom:0.8rem;
-    outline:none;
-  }
-  .gate-input:focus{border-color:var(--amber);}
-  .gate-error{color:var(--red);font-family:'Space Mono',monospace;font-size:0.72rem;margin-top:0.5rem;display:none;}
-
-  /* MAIN APP */
-  #app{display:none;padding-top:5rem;padding-bottom:4rem;}
-
-  /* PAGE HEADER */
-  .page-header{padding:2rem 0 0;}
-  .page-header h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:0.4rem 0 0.3rem;}
-  .page-header .sub{color:var(--ink-soft);font-size:0.95rem;margin:0;}
-
-  /* TABS */
-  .tabs{display:flex;gap:0.5rem;margin:1.8rem 0 0;border-bottom:1px solid var(--slate);padding-bottom:0;}
-  .tab{
-    font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;
-    text-transform:uppercase;padding:0.6rem 1rem;cursor:pointer;
-    border:none;background:none;color:var(--ink-soft);
-    border-bottom:2px solid transparent;margin-bottom:-1px;
-    transition:color 0.15s ease,border-color 0.15s ease;
-  }
-  .tab:hover{color:var(--ink);}
-  .tab.active{color:var(--ink);border-bottom-color:var(--amber);}
-
-  /* TAB PANELS */
-  .panel{display:none;padding:2rem 0;}
-  .panel.active{display:block;}
-
-  /* SECTION CARDS */
-  .section-card{
-    background:var(--card);border:1.5px solid var(--slate);
-    border-radius:var(--radius);padding:1.8rem;margin-bottom:1.4rem;
-  }
-  .section-card h3{
-    font-family:'Source Serif 4',serif;font-weight:600;
-    font-size:1.1rem;margin:0 0 1rem;
-  }
-  .eyebrow{color:var(--sage);display:block;margin-bottom:0.5rem;}
-
-  /* NOTES */
-  .notes-area{
-    width:100%;min-height:180px;
-    padding:1rem;border-radius:10px;
-    border:1.5px solid var(--slate);
-    background:var(--bg);resize:vertical;
-    font-family:'Source Serif 4',serif;font-size:0.97rem;
-    color:var(--ink);line-height:1.55;outline:none;
-  }
-  .notes-area:focus{border-color:var(--amber);}
-
-  /* TASK LIST */
-  .task-add-row{display:flex;gap:0.6rem;margin-bottom:1rem;}
-  .task-input{
-    flex:1;padding:0.75rem 1rem;border-radius:10px;
-    border:1.5px solid var(--slate);background:var(--bg);
-    font-family:'Source Serif 4',serif;font-size:0.97rem;
-    color:var(--ink);outline:none;
-  }
-  .task-input:focus{border-color:var(--amber);}
-  .task-list{list-style:none;margin:0;padding:0;}
-  .task-item{
-    display:flex;align-items:center;gap:0.7rem;
-    padding:0.65rem 0;border-bottom:1px solid var(--bg);
-  }
-  .task-item:last-child{border-bottom:none;}
-  .task-check{
-    width:1.3rem;height:1.3rem;border-radius:50%;
-    border:1.5px solid var(--slate);background:var(--bg);
-    cursor:pointer;flex-shrink:0;display:flex;
-    align-items:center;justify-content:center;
-    font-size:0.75rem;color:transparent;
-    transition:all 0.18s ease;
-  }
-  .task-check.done{background:var(--sage);border-color:var(--sage);color:#fff;}
-  .task-text{flex:1;font-size:0.97rem;}
-  .task-text.done{text-decoration:line-through;opacity:0.5;}
-  .task-del{
-    background:none;border:none;cursor:pointer;
-    color:var(--slate);font-size:1.1rem;padding:0 0.2rem;
-    transition:color 0.15s ease;line-height:1;
-  }
-  .task-del:hover{color:var(--red);}
-  .task-empty{
-    color:var(--ink-soft);font-size:0.9rem;
-    font-style:italic;text-align:center;padding:1rem 0;
-  }
-
-  /* SAVE / SEND ROW */
-  .action-row{display:flex;gap:0.75rem;flex-wrap:wrap;align-items:center;margin-top:1.5rem;}
-  .save-status{
-    font-family:'Space Mono',monospace;font-size:0.72rem;
-    color:var(--sage);opacity:0;transition:opacity 0.4s ease;
-  }
-  .save-status.show{opacity:1;}
-
-  /* HISTORY */
-  .history-item{
-    border:1.5px solid var(--slate);border-radius:12px;
-    padding:1.2rem 1.4rem;margin-bottom:0.8rem;cursor:pointer;
-    transition:border-color 0.15s ease;
-  }
-  .history-item:hover{border-color:var(--amber);}
-  .history-item-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.3rem;}
-  .history-date{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--sage);}
-  .history-task-count{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--ink-soft);}
-  .history-preview{color:var(--ink-soft);font-size:0.88rem;line-height:1.4;margin:0;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .history-empty{color:var(--ink-soft);font-style:italic;text-align:center;padding:2rem 0;}
-
-  /* HISTORY DETAIL */
-  .history-detail{display:none;background:var(--bg);border-radius:10px;padding:1.2rem;margin-top:0.8rem;}
-  .history-detail.open{display:block;}
-  .history-detail-notes{font-size:0.93rem;white-space:pre-wrap;margin-bottom:0.8rem;}
-  .history-detail-tasks{list-style:none;margin:0;padding:0;}
-  .history-detail-tasks li{
-    font-size:0.88rem;padding:0.35rem 0;border-bottom:1px solid var(--slate);
-    display:flex;gap:0.5rem;align-items:center;
-  }
-  .history-detail-tasks li:last-child{border-bottom:none;}
-  .done-badge{
-    font-family:'Space Mono',monospace;font-size:0.64rem;
-    color:var(--sage);letter-spacing:0.04em;
-  }
-  .open-badge{
-    font-family:'Space Mono',monospace;font-size:0.64rem;
-    color:var(--amber);letter-spacing:0.04em;
-  }
-
-  /* SETTINGS */
-  .field-row{margin-bottom:1.2rem;}
-  .field-label{
-    display:block;font-family:'Space Mono',monospace;font-size:0.72rem;
-    text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);
-    margin-bottom:0.45rem;
-  }
-  .field-input{
-    width:100%;padding:0.75rem 1rem;border-radius:10px;
-    border:1.5px solid var(--slate);background:var(--bg);
-    font-family:'Source Serif 4',serif;font-size:0.95rem;
-    color:var(--ink);outline:none;
-  }
-  .field-input:focus{border-color:var(--amber);}
-  .field-hint{
-    font-family:'Space Mono',monospace;font-size:0.68rem;
-    color:var(--ink-soft);margin-top:0.4rem;
-    text-transform:none;letter-spacing:0.01em;
-  }
-  .info-box{
-    background:var(--sage-bg);border:1.5px solid var(--sage);
-    border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;
-  }
-  .info-box p{margin:0;font-size:0.9rem;color:var(--sage);}
-
-  /* TOAST */
-  #toast{
-    position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;
-    background:var(--ink);color:#fff;border-radius:10px;
-    padding:0.8rem 1.2rem;font-family:'Space Mono',monospace;
-    font-size:0.75rem;letter-spacing:0.04em;
-    transform:translateY(4rem);opacity:0;
-    transition:all 0.3s ease;pointer-events:none;
-  }
-  #toast.show{transform:translateY(0);opacity:1;}
-
-  @media(max-width:600px){
-    .tabs{gap:0;}
-    .tab{padding:0.6rem 0.7rem;font-size:0.66rem;}
-  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Source Serif 4', serif; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .mono { font-family: 'Space Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.72rem; }
+  .display { font-family: 'Big Shoulders', sans-serif; font-weight: 800; letter-spacing: -0.01em; }
+  .hidden { display: none !important; }
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(238,241,246,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--slate); }
+  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0.9rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .wordmark { display: flex; align-items: baseline; gap: 0.6rem; }
+  .wordmark .title { font-family: 'Big Shoulders', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.01em; }
+  .wordmark .tag { color: var(--sage); }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+  .main { padding: 5.5rem 0 4rem; }
+  #gate { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
+  .gate-card { background: var(--card); border: 1.5px solid var(--slate); border-radius: var(--radius); padding: 2.5rem 2rem; max-width: 22rem; width: 100%; text-align: center; box-shadow: 0 18px 40px -22px rgba(31,36,68,0.25); }
+  .gate-card .display { font-size: 1.8rem; margin: 0.5rem 0 0.3rem; }
+  .gate-card p { color: var(--ink-soft); font-size: 0.95rem; margin: 0 0 1.5rem; }
+  .gate-card input[type="password"] { width: 100%; padding: 0.75rem 1rem; border-radius: 10px; border: 1.5px solid var(--slate); background: var(--bg); font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--ink); margin-bottom: 0.8rem; text-align: center; letter-spacing: 0.15em; }
+  .gate-card input:focus { outline: 3px solid var(--amber); outline-offset: 2px; border-color: transparent; }
+  .gate-error { color: var(--danger); font-size: 0.85rem; margin-top: 0.5rem; font-family: 'Space Mono', monospace; }
+  .btn { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'Space Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.7rem 1.2rem; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; white-space: nowrap; text-decoration: none; }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(31,36,68,0.18); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-amber { background: var(--amber); border-color: var(--amber); }
+  .btn-amber:hover { box-shadow: 0 6px 16px rgba(217,127,46,0.35); }
+  .btn-sage { background: var(--sage); border-color: var(--sage); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--slate); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-full { width: 100%; justify-content: center; }
+  .section-card { background: var(--card); border: 1.5px solid var(--slate); border-radius: var(--radius); padding: 1.8rem; margin-bottom: 1.2rem; }
+  .section-label { color: var(--sage); display: block; margin-bottom: 0.75rem; }
+  .page-header { margin-bottom: 1.5rem; }
+  .page-header h1 { font-family: 'Big Shoulders', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 4vw, 2.4rem); letter-spacing: -0.01em; margin: 0 0 0.25rem; line-height: 1; }
+  .page-header .date-line { color: var(--ink-soft); font-family: 'Space Mono', monospace; font-size: 0.75rem; letter-spacing: 0.05em; }
+  .notes-textarea { width: 100%; min-height: 140px; padding: 0.9rem 1rem; border-radius: 10px; border: 1.5px solid var(--slate); background: var(--bg); font-family: 'Source Serif 4', serif; font-size: 1rem; color: var(--ink); resize: vertical; line-height: 1.55; }
+  .notes-textarea:focus { outline: 3px solid var(--amber); outline-offset: 2px; border-color: transparent; }
+  .notes-textarea::placeholder { color: #8A90AC; }
+  .task-input-row { display: flex; gap: 0.6rem; margin-bottom: 1rem; }
+  .task-input { flex: 1; padding: 0.7rem 1rem; border-radius: 10px; border: 1.5px solid var(--slate); background: var(--bg); font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: var(--ink); }
+  .task-input:focus { outline: 3px solid var(--amber); outline-offset: 2px; border-color: transparent; }
+  .task-input::placeholder { color: #8A90AC; }
+  #task-list { list-style: none; padding: 0; margin: 0; }
+  #task-list li { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.75rem; border-radius: 10px; border: 1.5px solid var(--slate); margin-bottom: 0.5rem; background: var(--bg); transition: opacity 0.2s ease; }
+  #task-list li.done { opacity: 0.55; }
+  #task-list li input[type="checkbox"] { width: 1.1rem; height: 1.1rem; accent-color: var(--sage); cursor: pointer; flex-shrink: 0; }
+  .task-text { flex: 1; font-size: 0.97rem; color: var(--ink); }
+  #task-list li.done .task-text { text-decoration: line-through; color: var(--ink-soft); }
+  .task-delete { background: none; border: none; color: var(--slate); cursor: pointer; font-size: 1rem; padding: 0.1rem 0.3rem; border-radius: 4px; line-height: 1; transition: color 0.15s ease; flex-shrink: 0; }
+  .task-delete:hover { color: var(--danger); }
+  .no-tasks { color: var(--ink-soft); font-size: 0.9rem; font-style: italic; padding: 0.5rem 0; }
+  .save-row { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.2rem; }
+  .history-item { padding: 1rem 1.2rem; border: 1.5px solid var(--slate); border-radius: 12px; margin-bottom: 0.75rem; background: var(--bg); }
+  .history-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem; }
+  .history-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--amber); letter-spacing: 0.04em; }
+  .history-task-count { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--ink-soft); }
+  .history-summary { font-size: 0.9rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .history-notes-preview { font-size: 0.85rem; color: var(--ink-soft); font-style: italic; margin-top: 0.25rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .settings-outer { background: var(--card); border: 1.5px solid var(--slate); border-radius: var(--radius); margin-bottom: 1.2rem; overflow: hidden; }
+  .settings-toggle { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; background: none; border: none; color: var(--ink-soft); font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 1.8rem; width: 100%; text-align: left; transition: color 0.15s ease; }
+  .settings-toggle:hover { color: var(--ink); }
+  .settings-toggle .chevron { transition: transform 0.2s ease; display: inline-block; }
+  .settings-toggle.open .chevron { transform: rotate(180deg); }
+  .settings-body { padding: 0 1.8rem 1.5rem; border-top: 1px solid var(--slate); }
+  .form-group { margin-bottom: 1.1rem; }
+  .form-label { display: block; font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 0.4rem; }
+  .form-input { width: 100%; padding: 0.7rem 1rem; border-radius: 10px; border: 1.5px solid var(--slate); background: var(--bg); font-family: 'Source Serif 4', serif; font-size: 0.95rem; color: var(--ink); }
+  .form-input:focus { outline: 3px solid var(--amber); outline-offset: 2px; border-color: transparent; }
+  .form-hint { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.3rem; font-style: italic; }
+  .toast { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%) translateY(6px); background: var(--ink); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.04em; padding: 0.7rem 1.3rem; border-radius: 999px; opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease; pointer-events: none; z-index: 100; white-space: nowrap; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--sage); }
+  .toast.error-toast { background: var(--danger); }
+  @media (max-width: 600px) { .save-row { flex-direction: column; align-items: flex-start; } .task-input-row { flex-direction: column; } }
 </style>
 </head>
 <body>
 
-<!-- PASSWORD GATE -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="wordmark">
+      <span class="title">Mindful Gaming</span>
+      <span class="tag mono">Check-In</span>
+    </div>
+    <a href="index.html" class="btn btn-ghost" style="font-size:0.68rem;padding:0.5rem 1rem;">← Home</a>
+  </div>
+</nav>
+
 <div id="gate">
   <div class="gate-card">
-    <span class="mono eyebrow" style="display:block;margin-bottom:0.5rem;">Mindful Gaming</span>
-    <h2 class="display">Check-In</h2>
-    <p>This area is for Jeff and Chad. Enter the password to continue.</p>
-    <input class="gate-input" type="password" id="gate-input" placeholder="Password" autocomplete="current-password">
-    <button class="btn btn-amber" style="width:100%" onclick="checkPassword()">Enter</button>
-    <div class="gate-error" id="gate-error">Incorrect password.</div>
+    <span class="mono" style="color:var(--sage);">Practitioner Access</span>
+    <div class="display">Weekly<br>Check-In</div>
+    <p>Enter the access password to continue.</p>
+    <input type="password" id="gate-input" placeholder="••••••••••••" autocomplete="current-password">
+    <button class="btn btn-amber btn-full" id="gate-btn">Enter</button>
+    <div class="gate-error hidden" id="gate-error">Incorrect password. Try again.</div>
   </div>
 </div>
 
-<!-- MAIN APP -->
-<div id="app">
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="wordmark">
-        <a href="index.html">
-          <span class="title">Mindful Gaming</span>
-        </a>
-        <span class="tag mono">Check-In</span>
-      </div>
-      <button class="btn btn-ghost btn-sm" onclick="signOut()">Sign out</button>
-    </div>
-  </nav>
+<main id="app" class="hidden">
+  <div class="wrap main">
 
-  <div class="wrap">
     <div class="page-header">
-      <span class="mono eyebrow">Weekly</span>
-      <h1 class="display">Check-In</h1>
-      <p class="sub" id="session-date"></p>
+      <h1>Weekly Check-In</h1>
+      <div class="date-line" id="today-date"></div>
     </div>
 
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('current',this)">Current Session</button>
-      <button class="tab" onclick="switchTab('history',this)">History</button>
-      <button class="tab" onclick="switchTab('settings',this)">Settings</button>
+    <div class="section-card">
+      <span class="mono section-label">Meeting Notes</span>
+      <textarea class="notes-textarea" id="notes" placeholder="Notes from today's session…"></textarea>
     </div>
 
-    <!-- CURRENT SESSION TAB -->
-    <div class="panel active" id="tab-current">
-      <div class="section-card">
-        <span class="mono eyebrow">Meeting Notes</span>
-        <h3>Notes from this session</h3>
-        <textarea class="notes-area" id="notes-area" placeholder="What did you discuss? What's going well? What challenges came up?..."></textarea>
+    <div class="section-card">
+      <span class="mono section-label">Action Items</span>
+      <div class="task-input-row">
+        <input type="text" class="task-input" id="task-input" placeholder="Add a task…">
+        <button class="btn btn-sage" id="add-task-btn">Add Task</button>
       </div>
+      <ul id="task-list">
+        <li><span class="no-tasks">No tasks yet — add one above.</span></li>
+      </ul>
+    </div>
 
-      <div class="section-card">
-        <span class="mono eyebrow">Action Items</span>
-        <h3>Tasks before next check-in</h3>
-        <div class="task-add-row">
-          <input class="task-input" id="task-input" type="text" placeholder="Add a task..." onkeydown="if(event.key==='Enter')addTask()">
-          <button class="btn btn-sage btn-sm" onclick="addTask()">Add</button>
-        </div>
-        <ul class="task-list" id="task-list"></ul>
-        <div class="task-empty" id="task-empty">No tasks yet — add one above.</div>
-      </div>
+    <div class="save-row">
+      <button class="btn btn-amber" id="save-btn">Save Check-In</button>
+      <button class="btn btn-ghost" id="send-btn">Send Email Now</button>
+    </div>
 
-      <div class="action-row">
-        <button class="btn" onclick="saveSession()">Save</button>
-        <button class="btn btn-sage" onclick="sendEmail()">Send Email Now</button>
-        <span class="save-status" id="save-status">Saved</span>
+    <div class="section-card">
+      <span class="mono section-label">Recent Check-Ins</span>
+      <div id="history-list">
+        <p style="color:var(--ink-soft);font-size:0.9rem;font-style:italic;">Loading history…</p>
       </div>
     </div>
 
-    <!-- HISTORY TAB -->
-    <div class="panel" id="tab-history">
-      <div class="section-card">
-        <span class="mono eyebrow">Past Sessions</span>
-        <h3>Check-in history</h3>
-        <div id="history-list"><div class="history-empty">No past sessions yet.</div></div>
+    <div class="settings-outer">
+      <button class="settings-toggle" id="settings-toggle">
+        <span class="chevron">▾</span>&nbsp;Settings
+      </button>
+      <div class="settings-body hidden" id="settings-body">
+        <div style="height:1rem;"></div>
+        <div class="form-group">
+          <label class="form-label" for="email-recipients">Email Recipients</label>
+          <input type="text" class="form-input" id="email-recipients" placeholder="email1@example.com, email2@example.com">
+          <div class="form-hint">Comma-separated. Default: jswift8@gmail.com, chad@drchadkelland.com</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Meeting Schedule</label>
+          <div style="font-size:0.9rem;color:var(--ink-soft);padding:0.6rem 0.9rem;background:var(--bg);border-radius:8px;border:1.5px solid var(--slate);">
+            📅 Mondays at 10am MT — emails send automatically via Vercel Cron
+          </div>
+        </div>
+        <button class="btn btn-sage" id="save-settings-btn">Save Settings</button>
       </div>
     </div>
 
-    <!-- SETTINGS TAB -->
-    <div class="panel" id="tab-settings">
-      <div class="info-box">
-        <p>Emails go out automatically every Monday at 10:00am MT. Use "Send Email Now" on the Check-In tab to send immediately.</p>
-      </div>
-
-      <div class="section-card">
-        <span class="mono eyebrow">Email Settings</span>
-        <h3>Who receives check-in emails</h3>
-        <div class="field-row">
-          <label class="field-label">Recipient 1 — Email</label>
-          <input class="field-input" type="email" id="settings-email1" value="jswift8@gmail.com">
-        </div>
-        <div class="field-row">
-          <label class="field-label">Recipient 2 — Email</label>
-          <input class="field-input" type="email" id="settings-email2" value="chad@drchadkelland.com">
-        </div>
-        <div class="field-row">
-          <label class="field-label">Meeting Schedule</label>
-          <input class="field-input" type="text" id="settings-schedule" value="Mondays at 10:00am MT">
-          <div class="field-hint">For reference only — displayed in email subject line.</div>
-        </div>
-        <div class="action-row">
-          <button class="btn" onclick="saveSettings()">Save Settings</button>
-          <span class="save-status" id="settings-status">Saved</span>
-        </div>
-      </div>
-
-      <div class="section-card">
-        <span class="mono eyebrow" style="color:var(--ink-soft)">Danger Zone</span>
-        <h3>New Session</h3>
-        <p style="color:var(--ink-soft);font-size:0.93rem;margin:0 0 1rem;">Start a fresh check-in. The current session will be saved to history first.</p>
-        <button class="btn btn-ghost" onclick="newSession()">Archive &amp; Start New</button>
-      </div>
-    </div>
   </div>
-</div>
+</main>
 
-<div id="toast"></div>
+<div class="toast" id="toast"></div>
 
 <script>
+const PASSWORD = 'mindful2026';
 const SB_URL = 'https://ektzupeqzwhhseubvdpn.supabase.co/rest/v1/kv_store';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdHp1cGVxendoaHNldWJ2ZHBuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MDA1ODgsImV4cCI6MjA5OTI3NjU4OH0.mfeD0Z9Ho--g8asyaK5M6NeQRcRXAzqlqaB5xfHImmU';
-const SB_HEADERS = {
-  'apikey': SB_KEY,
-  'Authorization': 'Bearer ' + SB_KEY,
-  'Content-Type': 'application/json',
-  'Prefer': 'resolution=merge-duplicates'
-};
-
-// Simple password — stored in sessionStorage
-const PASSWORD = 'mindful2026';
+const SB_HEADERS = { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates' };
+const KEY_CURRENT = 'mindful-current-v1';
+const KEY_HISTORY = 'mindful-history-v1';
+const KEY_SETTINGS = 'mindful-settings-v1';
 
 let tasks = [];
-let settings = { email1: 'jswift8@gmail.com', email2: 'chad@drchadkelland.com', schedule: 'Mondays at 10:00am MT' };
-let sessionDate = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+let settings = { recipients: ['jswift8@gmail.com', 'chad@drchadkelland.com'] };
 
-// ---- AUTH ----
-function checkPassword() {
-  const val = document.getElementById('gate-input').value;
-  if (val === PASSWORD) {
-    sessionStorage.setItem('mg-auth', '1');
-    showApp();
-  } else {
-    document.getElementById('gate-error').style.display = 'block';
-    document.getElementById('gate-input').value = '';
-  }
-}
-
-function signOut() {
-  sessionStorage.removeItem('mg-auth');
-  location.reload();
-}
-
-document.getElementById('gate-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') checkPassword();
-});
-
-function showApp() {
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  document.getElementById('session-date').textContent = sessionDate;
-  loadAll();
-}
-
-if (sessionStorage.getItem('mg-auth') === '1') showApp();
-
-// ---- SUPABASE ----
 async function sbGet(key) {
-  try {
-    const r = await fetch(`${SB_URL}?key=eq.${key}&select=value`, { headers: SB_HEADERS });
-    const d = await r.json();
-    return d && d[0] ? JSON.parse(d[0].value) : null;
-  } catch(e) { return null; }
+  const r = await fetch(SB_URL + '?key=eq.' + encodeURIComponent(key) + '&select=value', { headers: SB_HEADERS });
+  const data = await r.json();
+  if (data && data[0]) return JSON.parse(data[0].value);
+  return null;
 }
 
 async function sbSet(key, value) {
-  await fetch(SB_URL, {
-    method: 'POST',
-    headers: SB_HEADERS,
-    body: JSON.stringify({ key, value: JSON.stringify(value), updated_at: new Date().toISOString() })
+  await fetch(SB_URL, { method: 'POST', headers: SB_HEADERS, body: JSON.stringify({ key, value: JSON.stringify(value) }) });
+}
+
+let toastTimer;
+function showToast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { el.className = 'toast'; }, 3000);
+}
+
+function tryLogin() {
+  const val = document.getElementById('gate-input').value;
+  if (val === PASSWORD) {
+    sessionStorage.setItem('mg_auth', '1');
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    init();
+  } else {
+    document.getElementById('gate-error').classList.remove('hidden');
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-input').focus();
+  }
+}
+
+document.getElementById('gate-btn').addEventListener('click', tryLogin);
+document.getElementById('gate-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') tryLogin(); });
+
+function renderTasks() {
+  const ul = document.getElementById('task-list');
+  ul.innerHTML = '';
+  if (tasks.length === 0) {
+    ul.innerHTML = '<li><span class="no-tasks">No tasks yet — add one above.</span></li>';
+    return;
+  }
+  tasks.forEach(function(t, i) {
+    const li = document.createElement('li');
+    if (t.done) li.classList.add('done');
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = t.done;
+    cb.addEventListener('change', function() { tasks[i].done = cb.checked; renderTasks(); });
+    const span = document.createElement('span');
+    span.className = 'task-text';
+    span.textContent = t.text;
+    const del = document.createElement('button');
+    del.className = 'task-delete';
+    del.innerHTML = '&#x2715;';
+    del.title = 'Remove task';
+    del.addEventListener('click', function() { tasks.splice(i, 1); renderTasks(); });
+    li.appendChild(cb);
+    li.appendChild(span);
+    li.appendChild(del);
+    ul.appendChild(li);
   });
 }
 
-// ---- LOAD ----
-async function loadAll() {
-  const [current, hist, sett] = await Promise.all([
-    sbGet('mindful-current-v1'),
-    sbGet('mindful-history-v1'),
-    sbGet('mindful-settings-v1')
-  ]);
-
-  if (current) {
-    document.getElementById('notes-area').value = current.notes || '';
-    tasks = current.tasks || [];
-  }
-  if (sett) {
-    settings = { ...settings, ...sett };
-    document.getElementById('settings-email1').value = settings.email1 || '';
-    document.getElementById('settings-email2').value = settings.email2 || '';
-    document.getElementById('settings-schedule').value = settings.schedule || '';
-  }
-  renderTasks();
-  renderHistory(hist);
-}
-
-// ---- TASKS ----
 function addTask() {
   const input = document.getElementById('task-input');
   const text = input.value.trim();
   if (!text) return;
-  tasks.push({ id: Date.now().toString(), text, done: false });
+  tasks.push({ text: text, done: false });
   input.value = '';
+  input.focus();
   renderTasks();
 }
 
-function toggleTask(id) {
-  const t = tasks.find(t => t.id === id);
-  if (t) t.done = !t.done;
-  renderTasks();
-}
+document.getElementById('add-task-btn').addEventListener('click', addTask);
+document.getElementById('task-input').addEventListener('keydown', function(e) { if (e.key === 'Enter') addTask(); });
 
-function deleteTask(id) {
-  tasks = tasks.filter(t => t.id !== id);
-  renderTasks();
-}
-
-function renderTasks() {
-  const list = document.getElementById('task-list');
-  const empty = document.getElementById('task-empty');
-  list.innerHTML = '';
-  if (!tasks.length) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-  tasks.forEach(task => {
-    const li = document.createElement('li');
-    li.className = 'task-item';
-    li.innerHTML = `
-      <button class="task-check ${task.done ? 'done' : ''}" onclick="toggleTask('${task.id}')" aria-label="Toggle task">✓</button>
-      <span class="task-text ${task.done ? 'done' : ''}">${escHtml(task.text)}</span>
-      <button class="task-del" onclick="deleteTask('${task.id}')" aria-label="Delete task">×</button>
-    `;
-    list.appendChild(li);
-  });
-}
-
-// ---- SAVE ----
-async function saveSession() {
-  const notes = document.getElementById('notes-area').value;
-  await sbSet('mindful-current-v1', {
-    notes, tasks, date: sessionDate,
-    savedAt: new Date().toISOString()
-  });
-  const s = document.getElementById('save-status');
-  s.textContent = 'Saved ✓';
-  s.classList.add('show');
-  setTimeout(() => s.classList.remove('show'), 2500);
-}
-
-// ---- SEND EMAIL ----
-async function sendEmail() {
-  await saveSession();
-  const notes = document.getElementById('notes-area').value;
-  const recipients = [settings.email1, settings.email2].filter(Boolean);
-  showToast('Sending email…');
-  try {
-    const r = await fetch('/api/send-checkin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tasks, notes, date: sessionDate, recipients })
-    });
-    if (r.ok) showToast('Email sent ✓');
-    else showToast('Email failed — check Vercel logs');
-  } catch(e) {
-    showToast('Email failed — check Vercel logs');
-  }
-}
-
-// ---- HISTORY ----
-function renderHistory(hist) {
-  const container = document.getElementById('history-list');
-  if (!hist || !hist.length) {
-    container.innerHTML = '<div class="history-empty">No past sessions yet.</div>';
+function renderHistory(history) {
+  const el = document.getElementById('history-list');
+  if (!history || history.length === 0) {
+    el.innerHTML = '<p style="color:var(--ink-soft);font-size:0.9rem;font-style:italic;">No previous check-ins yet.</p>';
     return;
   }
-  container.innerHTML = '';
-  [...hist].reverse().forEach((session, i) => {
-    const open = tasks.filter(t => !t.done).length;
-    const done = tasks.filter(t => t.done).length;
-    const openCount = (session.tasks || []).filter(t => !t.done).length;
-    const doneCount = (session.tasks || []).filter(t => t.done).length;
-    const preview = session.notes ? session.notes.slice(0, 120) + (session.notes.length > 120 ? '…' : '') : '(No notes)';
-    const div = document.createElement('div');
-    div.className = 'history-item';
-    div.innerHTML = `
-      <div class="history-item-header">
-        <span class="history-date">${escHtml(session.date || 'Unknown date')}</span>
-        <span class="history-task-count">${openCount} open · ${doneCount} done</span>
-      </div>
-      <p class="history-preview">${escHtml(preview)}</p>
-      <div class="history-detail" id="hd-${i}">
-        <div class="history-detail-notes">${escHtml(session.notes || '(No notes)')}</div>
-        <ul class="history-detail-tasks">
-          ${(session.tasks || []).map(t => `<li><span class="${t.done ? 'done-badge' : 'open-badge'}">${t.done ? 'DONE' : 'OPEN'}</span> ${escHtml(t.text)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-    div.addEventListener('click', () => {
-      document.getElementById('hd-' + i).classList.toggle('open');
+  const recent = history.slice(-5).reverse();
+  el.innerHTML = recent.map(function(item) {
+    const open = item.tasks ? item.tasks.filter(function(t) { return !t.done; }).length : 0;
+    const done = item.tasks ? item.tasks.filter(function(t) { return t.done; }).length : 0;
+    const taskSummary = item.tasks && item.tasks.length
+      ? item.tasks.slice(0, 3).map(function(t) { return (t.done ? '✓ ' : '• ') + t.text; }).join(' · ')
+      : 'No tasks';
+    const notesPreview = item.notes ? item.notes.substring(0, 100) + (item.notes.length > 100 ? '…' : '') : '';
+    return '<div class="history-item">' +
+      '<div class="history-item-header">' +
+      '<span class="history-date">' + item.date + '</span>' +
+      '<span class="history-task-count">' + done + ' done · ' + open + ' open</span>' +
+      '</div>' +
+      '<div class="history-summary">' + taskSummary + '</div>' +
+      (notesPreview ? '<div class="history-notes-preview">' + notesPreview + '</div>' : '') +
+      '</div>';
+  }).join('');
+}
+
+document.getElementById('save-btn').addEventListener('click', async function() {
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = 'Saving…';
+  const notes = document.getElementById('notes').value;
+  const date = document.getElementById('today-date').textContent;
+  const current = { tasks: tasks, notes: notes, date: date };
+  try {
+    await sbSet(KEY_CURRENT, current);
+    let history = await sbGet(KEY_HISTORY) || [];
+    const idx = history.findIndex(function(h) { return h.date === date; });
+    if (idx >= 0) history[idx] = current;
+    else history.push(current);
+    if (history.length > 20) history = history.slice(-20);
+    await sbSet(KEY_HISTORY, history);
+    renderHistory(history);
+    showToast('Check-in saved ✓', 'success');
+  } catch (err) {
+    showToast('Error saving — check console', 'error-toast');
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Save Check-In';
+  }
+});
+
+document.getElementById('send-btn').addEventListener('click', async function() {
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  const notes = document.getElementById('notes').value;
+  const date = document.getElementById('today-date').textContent;
+  try {
+    const res = await fetch('/api/send-checkin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tasks: tasks, notes: notes, date: date, recipients: settings.recipients })
     });
-    container.appendChild(div);
-  });
+    if (res.ok) {
+      showToast('Email sent ✓', 'success');
+    } else {
+      const data = await res.json().catch(function() { return {}; });
+      showToast('Email failed: ' + (data.message || res.status), 'error-toast');
+    }
+  } catch (err) {
+    showToast('Error sending email', 'error-toast');
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Email Now';
+  }
+});
+
+document.getElementById('settings-toggle').addEventListener('click', function() {
+  const body = document.getElementById('settings-body');
+  const open = !body.classList.contains('hidden');
+  body.classList.toggle('hidden', open);
+  this.classList.toggle('open', !open);
+});
+
+document.getElementById('save-settings-btn').addEventListener('click', async function() {
+  const raw = document.getElementById('email-recipients').value;
+  const recipients = raw.split(',').map(function(s) { return s.trim(); }).filter(Boolean);
+  if (recipients.length === 0) { showToast('Enter at least one recipient', 'error-toast'); return; }
+  settings.recipients = recipients;
+  await sbSet(KEY_SETTINGS, settings);
+  showToast('Settings saved ✓', 'success');
+});
+
+async function init() {
+  const now = new Date();
+  document.getElementById('today-date').textContent = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  try {
+    const current = await sbGet(KEY_CURRENT);
+    if (current) { document.getElementById('notes').value = current.notes || ''; tasks = current.tasks || []; }
+    renderTasks();
+  } catch(e) { console.warn('Could not load current', e); renderTasks(); }
+  try {
+    const history = await sbGet(KEY_HISTORY);
+    renderHistory(history);
+  } catch(e) {
+    document.getElementById('history-list').innerHTML = '<p style="color:var(--ink-soft);font-size:0.9rem;">Could not load history.</p>';
+  }
+  try {
+    const saved = await sbGet(KEY_SETTINGS);
+    if (saved) { settings = saved; document.getElementById('email-recipients').value = settings.recipients.join(', '); }
+    else { document.getElementById('email-recipients').value = settings.recipients.join(', '); }
+  } catch(e) { document.getElementById('email-recipients').value = settings.recipients.join(', '); }
 }
 
-// ---- NEW SESSION ----
-async function newSession() {
-  if (!confirm('Archive this session and start a new one?')) return;
-  const notes = document.getElementById('notes-area').value;
-  const hist = await sbGet('mindful-history-v1') || [];
-  hist.push({ date: sessionDate, notes, tasks, savedAt: new Date().toISOString() });
-  // Keep last 20 sessions
-  const trimmed = hist.slice(-20);
-  await Promise.all([
-    sbSet('mindful-history-v1', trimmed),
-    sbSet('mindful-current-v1', { notes: '', tasks: [], date: new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }), savedAt: new Date().toISOString() })
-  ]);
-  showToast('Session archived ✓');
-  sessionDate = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  document.getElementById('session-date').textContent = sessionDate;
-  document.getElementById('notes-area').value = '';
-  tasks = [];
-  renderTasks();
-  renderHistory(trimmed);
-  switchTab('current', document.querySelector('.tab'));
-}
-
-// ---- SETTINGS ----
-async function saveSettings() {
-  settings = {
-    email1: document.getElementById('settings-email1').value.trim(),
-    email2: document.getElementById('settings-email2').value.trim(),
-    schedule: document.getElementById('settings-schedule').value.trim()
-  };
-  await sbSet('mindful-settings-v1', settings);
-  const s = document.getElementById('settings-status');
-  s.textContent = 'Saved ✓';
-  s.classList.add('show');
-  setTimeout(() => s.classList.remove('show'), 2500);
-}
-
-// ---- TABS ----
-function switchTab(id, el) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  if (el) el.classList.add('active');
-}
-
-// ---- TOAST ----
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+if (sessionStorage.getItem('mg_auth') === '1') {
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  init();
 }
 </script>
 </body>

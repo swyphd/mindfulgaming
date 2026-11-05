@@ -503,7 +503,7 @@
         <input type="email" id="hero-email" placeholder="you@email.com" required>
         <button type="submit" class="btn">Get the free quest pack</button>
       </form>
-      <span class="mono microcopy">Sign up and get a free 5-quest starter pack — sent immediately.</span>
+      <span class="mono microcopy">Sign up and get the free Starter Pack — sent immediately.</span>
     </div>
 
     <div class="hero-quest-float">
@@ -617,13 +617,13 @@
         <input type="email" id="cta-email" placeholder="you@email.com" required>
         <button type="submit" class="btn">Get the free quest pack</button>
       </form>
-      <span class="mono microcopy">Sign up and get a free 5-quest starter pack — sent immediately.</span>
+      <span class="mono microcopy">Sign up and get the free Starter Pack — sent immediately.</span>
     </div>
 
     <div class="confirm-card hidden" id="confirm-card">
       <span class="mono">Quest accepted</span>
-      <h3>You're on the list.</h3>
-      <p>We'll send a note the moment beta access opens — no spam, just one email.</p>
+      <h3>Check your inbox.</h3>
+      <p>Your free Starter Pack is on its way. If it isn't there in a few minutes, check your spam or promotions folder.</p>
     </div>
   </div>
 </section>
@@ -655,29 +655,26 @@
     });
   });
 
-  // Formspree endpoint — replace YOUR_FORM_ID with your actual ID from formspree.io
-  const FORMSPREE_URL = 'https://formspree.io/f/mgojaqwa';
-
+  // Starter Pack signup: /api/subscribe saves the contact in Resend and emails the PDF.
   async function handleSubmit(e){
     e.preventDefault();
     const form = e.target;
     const emailInput = form.querySelector('input[type="email"]');
     const submitBtn = form.querySelector('button[type="submit"]');
+    const original = submitBtn.textContent;
 
-    // Disable button while submitting
     submitBtn.textContent = 'Sending…';
     submitBtn.disabled = true;
 
-    const data = {
-      email: emailInput.value,
-      age_group: selectedAge || 'Not specified',
-    };
-
     try {
-      const response = await fetch(FORMSPREE_URL, {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value,
+          age_group: selectedAge || '',
+          source: 'home:' + form.id,
+        }),
       });
 
       if (response.ok) {
@@ -685,12 +682,13 @@
         document.getElementById('confirm-card').classList.remove('hidden');
         document.getElementById('waitlist').scrollIntoView({behavior:'smooth', block:'center'});
       } else {
-        submitBtn.textContent = 'Try again';
+        const data = await response.json().catch(() => ({}));
+        submitBtn.textContent = original;
         submitBtn.disabled = false;
-        alert('Something went wrong. Please try again or email jeff.swift@me.com directly.');
+        alert((data.error || 'Something went wrong.') + ' You can also email jeff.swift@me.com directly.');
       }
     } catch(err) {
-      submitBtn.textContent = 'Try again';
+      submitBtn.textContent = original;
       submitBtn.disabled = false;
       alert('Something went wrong. Please try again or email jeff.swift@me.com directly.');
     }

@@ -1,1 +1,4 @@
-{"crons":[{"path":"/api/send-checkin","schedule":"0 17 * * 1"}]}
+{
+  "crons": [{ "path": "/api/send-checkin", "schedule": "0 17 * * 1" }],
+  "rewrites": [{ "source": "/bonus", "destination": "/bonus.html" }]
+}

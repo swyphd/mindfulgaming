@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Starter Pack — Mindful Gaming</title>
+<meta name="description" content="Free printable pages for gamers and the parents who support them: the three Mindful Gaming questions, a full journal session, Side Quests, and conversation starters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1F6; --card:#FFFFFF; --ink:#1F2444; --ink-soft:#4A5072;
+    --amber:#D97F2E; --amber-bg:#FBEAD7; --sage:#5C8973; --sage-bg:#E4EEE7; --slate:#C7CEDE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Source Serif 4',serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  a{color:var(--sage);}
+  .mono{font-family:'Space Mono',monospace;letter-spacing:0.08em;text-transform:uppercase;font-size:0.72rem;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 16px;}
+  header{padding:20px 0;}
+  header a{font-family:'Big Shoulders',sans-serif;font-weight:800;font-size:1.4rem;color:var(--ink);text-decoration:none;}
+  .grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:40px;align-items:start;padding-top:24px;padding-bottom:56px;}
+  h1{font-family:'Big Shoulders',sans-serif;font-weight:800;font-size:clamp(2.4rem,6vw,3.6rem);line-height:0.98;margin:10px 0 18px;}
+  .eyebrow{color:var(--sage);}
+  .lead{font-size:1.15rem;color:var(--ink-soft);margin:0 0 24px;max-width:34rem;}
+  form{display:flex;gap:10px;flex-wrap:wrap;max-width:30rem;}
+  input[type="email"]{flex:1 1 220px;min-width:0;font:inherit;font-size:1rem;padding:14px 16px;border:2px solid var(--slate);border-radius:999px;background:#fff;color:var(--ink);}
+  input[type="email"]:focus{outline:none;border-color:var(--amber);}
+  button{font-family:'Space Mono',monospace;font-weight:700;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;padding:14px 22px;border:0;border-radius:999px;background:var(--amber);color:#fff;cursor:pointer;}
+  button:disabled{opacity:0.6;cursor:wait;}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .micro{display:block;color:var(--ink-soft);margin-top:12px;text-transform:none;letter-spacing:0.01em;font-size:0.8rem;}
+  .error{color:#B3402A;margin-top:10px;min-height:1.4em;font-size:0.95rem;}
+  .card{background:var(--card);border:1px solid var(--slate);border-radius:16px;padding:24px;}
+  .card h2{font-family:'Big Shoulders',sans-serif;font-weight:700;font-size:1.5rem;margin:6px 0 12px;}
+  .card ul{margin:0;padding-left:20px;}
+  .card li{margin:6px 0;}
+  .questions{margin-top:20px;display:grid;gap:10px;}
+  .q{background:var(--sage-bg);border-radius:12px;padding:12px 14px;}
+  .q .mono{color:var(--sage);display:block;margin-bottom:2px;}
+  .done{background:var(--sage-bg);border:1px solid var(--sage);border-radius:16px;padding:20px;max-width:30rem;}
+  .done h3{margin:4px 0 8px;font-family:'Big Shoulders',sans-serif;font-size:1.6rem;}
+  .hidden{display:none !important;}
+  footer{border-top:1px solid var(--slate);padding:20px 0 32px;color:var(--ink-soft);font-size:0.9rem;}
+  @media (max-width:760px){ .grid{grid-template-columns:1fr;gap:28px;} }
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="/">Mindful Gaming</a></div></header>
+
+<main class="wrap grid">
+  <section>
+    <span class="mono eyebrow">Free printable pack</span>
+    <h1>The Mindful Gaming Starter Pack</h1>
+    <p class="lead">Printable pages to help gamers play with purpose, play well, and play together. Better gaming, not less. Enter your email and it arrives in a minute.</p>
+
+    <div id="form-wrap">
+      <form id="signup-form" novalidate>
+        <label for="email" class="hp">Email address</label>
+        <input type="email" id="email" name="email" placeholder="you@email.com" autocomplete="email" required>
+        <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <button type="submit" id="submit-btn">Send me the pack</button>
+      </form>
+      <div class="error" id="error" role="alert"></div>
+      <span class="mono micro">One short email about twice a month after this. Unsubscribe any time.</span>
+    </div>
+
+    <div class="done hidden" id="done" role="status">
+      <span class="mono" style="color:var(--sage)">Quest accepted</span>
+      <h3>Check your inbox.</h3>
+      <p style="margin:0">The Starter Pack is on its way. If it isn't there in a few minutes, check your spam or promotions folder.</p>
+    </div>
+  </section>
+
+  <aside class="card">
+    <span class="mono" style="color:var(--amber)">What's inside</span>
+    <h2>13 pages, ready to print</h2>
+    <ul>
+      <li>The three Mindful Gaming questions</li>
+      <li>A full session from <em>The Mindful Gaming Journal</em>, to print as often as you like</li>
+      <li>Five Side Quests</li>
+      <li>A session and Word Bank page from <em>The Feelings Are Real</em></li>
+      <li>Conversation starters for parents</li>
+    </ul>
+    <div class="questions">
+      <div class="q"><span class="mono">Play with Purpose</span>Why am I gaming right now?</div>
+      <div class="q"><span class="mono">Play Well</span>How do I want to play today?</div>
+      <div class="q"><span class="mono">Play Together</span>Who am I gaming with?</div>
+    </div>
+  </aside>
+</main>
+
+<footer><div class="wrap">Mindful Gaming, by Jeff Swift, PhD, author of <em>Mindful Gaming</em> and <a href="https://www.amazon.com/dp/B0HPX4D9VF" target="_blank" rel="noopener">The Mindful Gaming Journal</a>. Psychoeducational, not a substitute for professional care.</div></footer>
+
+<script>
+  const form = document.getElementById('signup-form');
+  const btn = document.getElementById('submit-btn');
+  const err = document.getElementById('error');
+  const params = new URLSearchParams(location.search);
+  const source = params.get('src') || params.get('utm_source') || (document.referrer ? 'web' : 'qr-or-direct');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    err.textContent = '';
+    const email = document.getElementById('email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const r = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'bonus:' + source, website: document.getElementById('website').value })
+      });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || 'Something went wrong.');
+      document.getElementById('form-wrap').classList.add('hidden');
+      document.getElementById('done').classList.remove('hidden');
+    } catch (e2) {
+      err.textContent = (e2.message || 'Something went wrong.') + ' You can also email jeff.swift@me.com.';
+      btn.disabled = false; btn.textContent = 'Try again';
+    }
+  });
+</script>
+</body>
+</html>

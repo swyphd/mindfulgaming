@@ -396,6 +396,15 @@
   .book-cta-row{display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.8rem;}
   @media (max-width:880px){.book-grid{grid-template-columns:1fr;gap:2rem;}}
 
+  /* ---------- BOOKS ---------- */
+  .books-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;}
+  .book-card{background:var(--card);border:1px solid var(--slate);border-radius:16px;padding:1.4rem;display:flex;flex-direction:column;}
+  .book-card img{width:100%;max-width:180px;border-radius:4px;box-shadow:0 14px 28px -10px rgba(31,36,68,0.35);margin-bottom:1.1rem;}
+  .book-card h3{margin:0 0 0.4rem;font-size:1.2rem;}
+  .book-card p{color:var(--ink-soft);margin:0 0 1rem;font-size:0.95rem;flex:1;}
+  .book-card .soon{display:inline-block;align-self:flex-start;}
+  @media (max-width:880px){.books-grid{grid-template-columns:1fr;}}
+
   /* ---------- FINAL CTA ---------- */
   .cta-section{text-align:center;}
   .cta-section h2{
@@ -482,6 +491,7 @@
       <span class="tag mono">Early Access</span>
     </div>
     <div class="nav-links">
+      <a href="#books" class="nav-link">Books</a>
       <a href="practitioners.html" class="nav-link">Practitioners</a>
       <!-- Check-In hidden from front page; checkin.html is kept in place. -->
       <!-- <a href="checkin.html" class="nav-link">Check-In</a> -->
@@ -593,6 +603,36 @@
           <a href="https://www.amazon.com/Mindful-Gaming-Guide-Parents-Gamers/dp/B0DCLKPKN5" target="_blank" rel="noopener" class="btn">Buy on Amazon</a>
           <a href="https://us.amazon.com/Mindful-Gaming-Guide-Parents-Gamers-ebook/dp/B0DD8GDL1G" target="_blank" rel="noopener" class="btn btn-ghost">Kindle Edition</a>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="books">
+  <div class="wrap reveal">
+    <span class="mono eyebrow">The books</span>
+    <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.4rem);">Start with a page, not a lecture</h2>
+    <div class="books-grid">
+      <div class="book-card">
+        <img src="journal-cover.jpg" alt="The Mindful Gaming Journal: 47 Guided Sessions to Play with Purpose, Play Well, and Play Together, by Jeffrey Swift, PhD">
+        <span class="mono eyebrow">New</span>
+        <h3>The Mindful Gaming Journal</h3>
+        <p>47 guided sessions for teens and adults. Each one wraps a gaming session in three quick check-ins: why I'm playing, how I want to play, and who I'm playing with.</p>
+        <a href="https://www.amazon.com/dp/B0HPX4D9VF" target="_blank" rel="noopener" class="btn">Get it on Amazon</a>
+      </div>
+      <div class="book-card">
+        <img src="book-cover.jpg" alt="Mindful Gaming: A Guide for Parents of Young Gamers by Jeffrey Swift PhD">
+        <span class="mono eyebrow">For parents</span>
+        <h3>Mindful Gaming</h3>
+        <p>The guide for parents who want real conversations with their kids about gaming. It's where the three questions come from.</p>
+        <a href="https://www.amazon.com/dp/B0DCLKPKN5" target="_blank" rel="noopener" class="btn">Get it on Amazon</a>
+      </div>
+      <div class="book-card">
+        <img src="starter-pack-cover.jpg" alt="The Mindful Gaming Starter Pack, a free 13-page printable PDF">
+        <span class="mono eyebrow">Free</span>
+        <h3>The Starter Pack</h3>
+        <p>13 printable pages: the three questions, a full journal session, five Side Quests, and conversation starters for parents.</p>
+        <a href="/bonus?src=home-books" class="btn btn-ghost">Send me the pack</a>
       </div>
     </div>
   </div>

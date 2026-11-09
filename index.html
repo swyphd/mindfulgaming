@@ -720,6 +720,7 @@
       });
 
       if (response.ok) {
+        if (window.va) window.va('event', { name: 'Signup', data: { page: 'home', form: form.id } });
         document.getElementById('cta-form-wrap').classList.add('hidden');
         document.getElementById('confirm-card').classList.remove('hidden');
         document.getElementById('waitlist').scrollIntoView({behavior:'smooth', block:'center'});

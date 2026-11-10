@@ -116,6 +116,7 @@
       });
       const data = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(data.error || 'Something went wrong.');
+      if (window.va) window.va('event', { name: 'Signup', data: { page: 'bonus', source: source } });
       document.getElementById('form-wrap').classList.add('hidden');
       document.getElementById('done').classList.remove('hidden');
     } catch (e2) {

@@ -513,6 +513,7 @@
       <form class="waitlist-form" id="hero-form">
         <label for="hero-email" class="hidden">Email address</label>
         <input type="email" id="hero-email" placeholder="you@email.com" required>
+        <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <button type="submit" class="btn">Get the free quest pack</button>
       </form>
       <span class="mono microcopy">Sign up and get the free Starter Pack — sent immediately.</span>
@@ -657,6 +658,7 @@
       <form class="waitlist-form centered" id="cta-form">
         <label for="cta-email" class="hidden">Email address</label>
         <input type="email" id="cta-email" placeholder="you@email.com" required>
+        <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
         <button type="submit" class="btn">Get the free quest pack</button>
       </form>
       <span class="mono microcopy">Sign up and get the free Starter Pack — sent immediately.</span>
@@ -698,6 +700,7 @@
   });
 
   // Starter Pack signup: /api/subscribe saves the contact in Resend and emails the PDF.
+  const PAGE_LOADED = Date.now();
   async function handleSubmit(e){
     e.preventDefault();
     const form = e.target;
@@ -716,6 +719,8 @@
           email: emailInput.value,
           age_group: selectedAge || '',
           source: 'home:' + form.id,
+          website: (form.querySelector('input[name="website"]') || {}).value || '',
+          t: Date.now() - PAGE_LOADED,
         }),
       });
 

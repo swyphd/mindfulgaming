@@ -24,8 +24,17 @@ export default async function handler(req, res) {
   const source = String(body.source || 'unknown').slice(0, 40);
   const ageGroup = String(body.age_group || '').slice(0, 20);
 
-  // Honeypot: bots fill the hidden "website" field. Pretend it worked.
-  if (body.website) return res.status(200).json({ ok: true });
+  // Bot checks. Each one pretends it worked so bots get no signal, and nothing is sent.
+  //  - Honeypot: bots fill the hidden "website" field.
+  //  - Timing: the site's forms send how long the page was open; missing or under 2.5s is a script.
+  //  - Dotted Gmail: signup-bombing bots use addresses like a.b.c.d@gmail.com.
+  const elapsed = Number(body.t);
+  const [local, domain] = email.split('@');
+  const dottedGmail = /^(gmail|googlemail)\.com$/.test(domain || '') && (local.match(/\./g) || []).length >= 3;
+  if (body.website || !Number.isFinite(elapsed) || elapsed < 2500 || dottedGmail) {
+    console.warn('Signup blocked as likely bot:', { email, source, elapsed, honeypot: !!body.website, dottedGmail });
+    return res.status(200).json({ ok: true });
+  }
 
   if (!email || email.length > 254 || !EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });

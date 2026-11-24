@@ -1,4 +1,11 @@
 {
   "crons": [{ "path": "/api/send-checkin", "schedule": "0 17 * * 1" }],
-  "rewrites": [{ "source": "/bonus", "destination": "/bonus.html" }]
+  "rewrites": [{ "source": "/bonus", "destination": "/bonus.html" }],
+  "redirects": [
+    {
+      "source": "/review",
+      "destination": "https://www.amazon.com/review/create-review?asin=B0HSQZN96S",
+      "permanent": false
+    }
+  ]
 }
